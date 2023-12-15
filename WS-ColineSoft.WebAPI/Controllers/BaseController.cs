@@ -1,4 +1,7 @@
-﻿namespace WS_ColineSoft.WebAPI.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using WS_ColineSoft.Domain.Interfaces.Services;
+
+namespace WS_ColineSoft.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
