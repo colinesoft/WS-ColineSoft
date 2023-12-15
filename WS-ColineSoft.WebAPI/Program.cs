@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.WebAPI.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
