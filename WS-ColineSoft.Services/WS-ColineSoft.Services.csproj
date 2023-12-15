@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>WS_ColineSoft.Services</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WS-ColineSoft.DAL\WS-ColineSoft.DAL.csproj" />
+    <ProjectReference Include="..\WS-ColineSoft.Domain\WS-ColineSoft.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
