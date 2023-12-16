@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using WS_ColineSoft.Domain.Interfaces.Services;
 
 namespace WS_ColineSoft.WebAPI.Controllers
@@ -7,7 +8,7 @@ namespace WS_ColineSoft.WebAPI.Controllers
     [Route("api/[controller]")]
     public abstract class BaseController<TModel> : Controller
     {
-        private readonly IBaseService<TModel> service;
+        protected readonly IBaseService<TModel> service;
         public BaseController(IBaseService<TModel> service)
         {
             this.service = service;

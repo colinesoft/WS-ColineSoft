@@ -1,4 +1,5 @@
-﻿using WS_ColineSoft.Domain.Interfaces.Repositories;
+﻿using System.Linq.Expressions;
+using WS_ColineSoft.Domain.Interfaces.Repositories;
 using WS_ColineSoft.Domain.Interfaces.Services;
 
 namespace WS_ColineSoft.Services
@@ -18,6 +19,11 @@ namespace WS_ColineSoft.Services
         public IEnumerable<TEntity> GetAll()
         {
             return repository.GetAll();
+        }
+
+        public IQueryable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression)
+        {
+            return repository.GetBy(expression);
         }
     }
 }

@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WS-ColineSoft.DAL\WS-ColineSoft.DAL.csproj" />
     <ProjectReference Include="..\WS-ColineSoft.Domain\WS-ColineSoft.Domain.csproj" />
+    <ProjectReference Include="..\WS-ColineSoft.Functions\WS-ColineSoft.Functions.csproj" />
     <ProjectReference Include="..\WS-ColineSoft.Services\WS-ColineSoft.Services.csproj" />
   </ItemGroup>
 
