@@ -9,7 +9,7 @@ namespace WS_ColineSoft.WebAPI.Configuration
     {
         public static IServiceCollection ResolveDependenciesServices(this IServiceCollection services)
         {
-            services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddTransient(typeof(IBaseService<,>), typeof(BaseService<,>));
             return services;
         }
         public static IServiceCollection ResolveDependenciesRepositories(this IServiceCollection services)

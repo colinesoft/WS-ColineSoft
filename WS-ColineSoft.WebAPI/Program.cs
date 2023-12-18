@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.Functions;
+using WS_ColineSoft.WebAPI.AutoMapper;
 using WS_ColineSoft.WebAPI.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Configuração do Banco de dados para o DbContext
 builder.Services.AddDbContext<ColineSoftContext>(option =>
 {
     string database = builder.Configuration["ConnectionStrings:Database"] ?? "";
@@ -25,6 +27,10 @@ builder.Services.AddDbContext<ColineSoftContext>(option =>
 //Injeção de dependência
 builder.Services.ResolveDependenciesServices();
 builder.Services.ResolveDependenciesRepositories();
+
+//Autommaper
+builder.Services.AddAutoMapper(typeof(DomainToViewModelConfig));
+builder.Services.AddAutoMapper(typeof(ViewModelToDomainConfig));
 
 var app = builder.Build();
 

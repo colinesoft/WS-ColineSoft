@@ -8,14 +8,14 @@ namespace WS_ColineSoft.Domain.Interfaces.Repositories
         IEnumerable<TEntity> GetAll();
         IQueryable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression);
 
-        void Insert(TEntity obj);
+        TEntity? Insert(TEntity obj);
         void Insert(IEnumerable<TEntity> objs);
 
-        void Update(TEntity obj);
+        TEntity Update(TEntity obj);
         void Update(IEnumerable<TEntity> objs);
 
-        void Delete(TEntity obj);
-        void Delete(Guid id);
+        TEntity? Delete(TEntity obj);
+        TEntity? Delete(Guid id);
         void Delete(IEnumerable<TEntity> objs);
 
         int SaveChange();

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WS-ColineSoft.DAL\WS-ColineSoft.DAL.csproj" />
     <ProjectReference Include="..\WS-ColineSoft.Domain\WS-ColineSoft.Domain.csproj" />
   </ItemGroup>

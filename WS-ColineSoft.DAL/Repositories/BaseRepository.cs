@@ -29,9 +29,9 @@ namespace WS_ColineSoft.DAL.Repositories
             return _dbSet.Where(expression);
         }
 
-        public void Insert(TEntity obj)
+        public TEntity? Insert(TEntity obj)
         {
-            _dbSet.Add(obj);
+            return _dbSet.Add(obj).Entity ?? null;
         }
 
         public void Insert(IEnumerable<TEntity> objs)
@@ -39,10 +39,10 @@ namespace WS_ColineSoft.DAL.Repositories
             _dbSet.AddRange(objs);
         }
 
-        public void Update(TEntity obj)
+        public TEntity Update(TEntity obj)
         {
             _context.Entry(obj).State = EntityState.Modified;
-            _dbSet.Update(obj);
+            return _dbSet.Update(obj).Entity;
         }
 
         public void Update(IEnumerable<TEntity> objs)
@@ -50,16 +50,17 @@ namespace WS_ColineSoft.DAL.Repositories
             _dbSet.UpdateRange(objs);
         }
 
-        public void Delete(TEntity obj)
+        public TEntity? Delete(TEntity obj)
         {
-            _dbSet.Remove(obj);
+            return _dbSet.Remove(obj).Entity ?? null;
         }
 
-        public void Delete(Guid id)
+        public TEntity? Delete(Guid id)
         {
             var obj = Get(id);
             if(obj != null)
-                Delete(obj);
+                return Delete(obj) ?? null;
+            return null;
         }
 
         public void Delete(IEnumerable<TEntity> objs)

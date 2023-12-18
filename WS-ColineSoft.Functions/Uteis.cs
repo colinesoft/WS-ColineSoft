@@ -244,6 +244,16 @@ namespace WS_ColineSoft.Functions
 
             return strValorExtenso.Trim();
         }
+        public static string Extenso(this int valor)
+        {
+            var vlrDecimal = Decimal.Parse(valor.ToString());
+            return vlrDecimal.Extenso()
+                .Replace("Reais", "")
+                .Replace("Real", "")
+                .Replace("Centavos", "")
+                .Replace("Centavo", "")
+                .Trim();
+        }
 
         private static string fcn_Numero_Dezena0(string pstrDezena0)
         {
@@ -343,6 +353,90 @@ namespace WS_ColineSoft.Functions
             string result = param.Substring(startIndex, length);
             //return the result of the operation
             return result;
+        }
+
+
+
+
+        public static int ExtensoToInteiro(string extenso)
+        {
+            Dictionary<string, int> NumDict = null; ;
+            Dictionary<string, int> MilharDict = null;
+            extenso = extenso.ToLower();
+
+            if (NumDict == null)
+            {
+                NumDict = new Dictionary<string, int>();
+                MilharDict = new Dictionary<string, int>();
+
+                NumDict.Add("zero", 0);
+                NumDict.Add("um", 1);
+                NumDict.Add("dois", 2);
+                NumDict.Add("três", 3);
+                NumDict.Add("quatro", 4);
+                NumDict.Add("cinco", 5);
+                NumDict.Add("seis", 6);
+                NumDict.Add("sete", 7);
+                NumDict.Add("oito", 8);
+                NumDict.Add("nove", 9);
+
+                NumDict.Add("dez", 10);
+                NumDict.Add("onze", 11);
+                NumDict.Add("doze", 12);
+                NumDict.Add("treze", 13);
+                NumDict.Add("quatorze", 14);
+                NumDict.Add("quinze", 15);
+                NumDict.Add("dezesseis", 16);
+                NumDict.Add("dezessete", 17);
+                NumDict.Add("dezoito", 18);
+                NumDict.Add("dezenove", 19);
+
+                NumDict.Add("vinte", 20);
+                NumDict.Add("trinta", 30);
+                NumDict.Add("quarenta", 40);
+                NumDict.Add("cinquenta", 50);
+                NumDict.Add("sessenta", 60);
+                NumDict.Add("setenta", 70);
+                NumDict.Add("oitenta", 80);
+                NumDict.Add("noventa", 90);
+
+                NumDict.Add("cem", 100);
+                NumDict.Add("cento", 100);
+                NumDict.Add("duzentos", 200);
+                NumDict.Add("trezentos", 300);
+                NumDict.Add("quatrocentos", 400);
+                NumDict.Add("quinhentos", 500);
+                NumDict.Add("seiscentos", 600);
+                NumDict.Add("setecentos", 700);
+                NumDict.Add("oitocentos", 800);
+                NumDict.Add("novecentos", 900);
+
+                MilharDict.Add("mil", 1000);
+                MilharDict.Add("milhão", 1000000);
+                MilharDict.Add("milhões", 1000000);
+                MilharDict.Add("bilhão", 1000000000);
+                MilharDict.Add("bilhões", 1000000000);
+            }
+
+            int resultado = 0;
+            int grupoCorrente = 0;
+
+            foreach (var word in extenso.Split(' '))
+            {
+                if (NumDict.ContainsKey(word))
+                {
+                    grupoCorrente += NumDict[word];
+                }
+                else if (MilharDict.ContainsKey(word))
+                {
+                    resultado += (grupoCorrente == 0 ? 1 : grupoCorrente) * MilharDict[word];
+                    grupoCorrente = 0;
+                }
+            }
+
+            resultado += grupoCorrente;
+
+            return resultado;
         }
     }
 }
