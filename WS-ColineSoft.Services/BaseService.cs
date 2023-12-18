@@ -1,9 +1,5 @@
 ﻿using AutoMapper;
-using FluentValidation;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.Domain.Interfaces.Repositories;
 using WS_ColineSoft.Domain.Interfaces.Services;
 
