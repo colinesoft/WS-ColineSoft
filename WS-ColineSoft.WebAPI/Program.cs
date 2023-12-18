@@ -1,5 +1,9 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using WS_ColineSoft.DAL.Context;
+using WS_ColineSoft.Domain.DTO;
+using WS_ColineSoft.Domain.Validators;
 using WS_ColineSoft.Functions;
 using WS_ColineSoft.WebAPI.AutoMapper;
 using WS_ColineSoft.WebAPI.Configuration;
@@ -7,10 +11,13 @@ using WS_ColineSoft.WebAPI.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<IValidator<TesteDTO>, TesteValidator>();
 
 //Configuração do Banco de dados para o DbContext
 builder.Services.AddDbContext<ColineSoftContext>(option =>
@@ -27,8 +34,9 @@ builder.Services.AddDbContext<ColineSoftContext>(option =>
 //Injeção de dependência
 builder.Services.ResolveDependenciesServices();
 builder.Services.ResolveDependenciesRepositories();
-
-//Autommaper
+//Validators
+builder.Services.ResolveValidators();
+//AutoMapper
 builder.Services.AddAutoMapper(typeof(DomainToViewModelConfig));
 builder.Services.AddAutoMapper(typeof(ViewModelToDomainConfig));
 

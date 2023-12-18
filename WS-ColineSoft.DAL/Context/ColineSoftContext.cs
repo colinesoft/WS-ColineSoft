@@ -10,6 +10,12 @@ namespace WS_ColineSoft.DAL.Context
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            //Necessário para validação dos MAPS
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ColineSoftContext).Assembly);
+        }
         public DbSet<TesteEntity> Teste { get;set; }
     }
 }

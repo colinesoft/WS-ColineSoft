@@ -29,6 +29,9 @@ namespace WS_ColineSoft.WebAPI.Controllers
         [HttpPost("Insert")]
         public virtual IActionResult Insert([FromBody] TModel obj)
         {
+            if (!ModelState.IsValid)
+                return BadRequest("Erro de requisição");
+
             _service.Insert(obj);
             _service.SaveChange();
             return Ok("Sucesso");

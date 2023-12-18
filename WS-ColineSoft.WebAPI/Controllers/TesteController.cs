@@ -4,6 +4,7 @@ using WS_ColineSoft.Domain.DTO;
 using WS_ColineSoft.Domain.Entities;
 using WS_ColineSoft.Domain.Interfaces.Repositories;
 using WS_ColineSoft.Domain.Interfaces.Services;
+using WS_ColineSoft.Domain.Validators;
 using WS_ColineSoft.Functions;
 
 namespace WS_ColineSoft.WebAPI.Controllers
