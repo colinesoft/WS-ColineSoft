@@ -21,13 +21,13 @@ namespace WS_ColineSoft.DAL.Mappings
                 .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("Nome")
-                .HasColumnType("Varchar(100)");
+                .HasColumnType("varchar(100)");
 
             builder.Property(e => e.Tamanho)
                 .IsRequired()
                 .HasColumnName("Tamanho")
                 .HasColumnType("int")
-                .HasDefaultValue(0);
+                .HasDefaultValue(0);            
         }
     }
 }

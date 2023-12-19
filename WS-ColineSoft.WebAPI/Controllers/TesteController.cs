@@ -4,7 +4,6 @@ using WS_ColineSoft.Domain.DTO;
 using WS_ColineSoft.Domain.Entities;
 using WS_ColineSoft.Domain.Interfaces.Repositories;
 using WS_ColineSoft.Domain.Interfaces.Services;
-using WS_ColineSoft.Functions;
 
 namespace WS_ColineSoft.WebAPI.Controllers
 {
@@ -36,9 +35,7 @@ namespace WS_ColineSoft.WebAPI.Controllers
         [HttpGet("GetCripto")]
         public IActionResult GetCripto()
         {
-            int i = 11752;
-            string d = i.Extenso();
-            return Ok(Uteis.ExtensoToInteiro(d));
+            return Ok("Teste");
         }
     }
 }

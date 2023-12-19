@@ -11,6 +11,11 @@ namespace WS_ColineSoft.WebAPI.AutoMapper
         {
             CreateMap<TesteEntity, TesteDTO>()
                 .ForMember(dest => dest.TamanhoExtenso, opt => opt.MapFrom(src => src.Tamanho.Extenso()));
+            CreateMap<CorEntity, CorDTO>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.StatusGeral.Descritivo));
+
+            //REVERSES
+            CreateMap<StatusGeralEntity, StatusGeralDTO>().ReverseMap();
         }
     }
 }

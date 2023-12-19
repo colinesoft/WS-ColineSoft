@@ -17,5 +17,7 @@ namespace WS_ColineSoft.DAL.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ColineSoftContext).Assembly);
         }
         public DbSet<TesteEntity> Teste { get;set; }
+        public DbSet<CorEntity> Cores { get;set; }
+        public DbSet<StatusGeralEntity> StatusGeral { get; set; }
     }
 }
