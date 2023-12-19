@@ -1,8 +1,9 @@
 ﻿using System.Linq.Expressions;
+using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.Domain.Interfaces.Repositories
 {
-    public interface IBaseRepository<TEntity>: IDisposable where TEntity : class
+    public interface IBaseRepository<TEntity>: IDisposable
     {
         TEntity? Get(Guid id);
         IEnumerable<TEntity> GetAll();

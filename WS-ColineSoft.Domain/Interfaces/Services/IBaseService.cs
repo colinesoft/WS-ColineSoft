@@ -1,4 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using System.Linq.Expressions;
+using WS_ColineSoft.Domain.DTO.Defaults;
 
 namespace WS_ColineSoft.Domain.Interfaces.Services
 {
@@ -9,17 +12,17 @@ namespace WS_ColineSoft.Domain.Interfaces.Services
         IEnumerable<TModel> GetAll();
         IQueryable<TModel> GetBy(Expression<Func<TEntity, bool>> expression); 
 
-        void Insert(TModel obj);
+        TEntity? Insert(TModel obj);
         void Insert(IEnumerable<TModel> objs);
 
-        void Update(TModel obj);
+        TEntity? Update(TModel obj);
         void Update(IEnumerable<TModel> objs);
 
-        void Delete(TModel obj);
-        void Delete(Guid id);
+        TEntity? Delete(TModel obj);
+        TEntity? Delete(Guid id);
         void Delete(IEnumerable<TModel> objs);
 
-        int SaveChange();
+        BaseResponse SaveChange();
         #endregion
     }
 }

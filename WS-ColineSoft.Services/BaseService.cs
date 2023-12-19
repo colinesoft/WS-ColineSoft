@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using System.Linq.Expressions;
+using WS_ColineSoft.Domain.DTO.Defaults;
 using WS_ColineSoft.Domain.Interfaces.Repositories;
 using WS_ColineSoft.Domain.Interfaces.Services;
 
 namespace WS_ColineSoft.Services
 {
-    public class BaseService<TModel, TEntity> : IBaseService<TModel, TEntity>  where TEntity : class 
+    public class BaseService<TModel, TEntity> : IBaseService<TModel, TEntity>
     {
         protected readonly IBaseRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
@@ -16,14 +17,14 @@ namespace WS_ColineSoft.Services
             this._mapper = mapper;
         }
 
-        public void Delete(TModel obj)
+        public TEntity? Delete(TModel obj)
         {
-            _repository.Delete(_mapper.Map<TEntity>(obj));
+            return _repository.Delete(_mapper.Map<TEntity>(obj));
         }
 
-        public void Delete(Guid id)
+        public TEntity? Delete(Guid id)
         {
-            _repository.Delete(id);
+            return _repository.Delete(id);
         }
 
         public void Delete(IEnumerable<TModel> objs)
@@ -46,9 +47,9 @@ namespace WS_ColineSoft.Services
             return _mapper.Map<IQueryable<TModel>>(expression);
         }
 
-        public void Insert(TModel obj)
+        public TEntity? Insert(TModel obj)
         {
-            _repository.Insert(_mapper.Map<TEntity>(obj));
+            return _repository.Insert(_mapper.Map<TEntity>(obj));           
         }
 
         public void Insert(IEnumerable<TModel> objs)
@@ -56,18 +57,44 @@ namespace WS_ColineSoft.Services
             _repository.Insert(_mapper.Map<IEnumerable<TEntity>>(objs));
         }
 
-        public void Update(TModel obj)
+        public TEntity? Update(TModel obj)
         {
-            _repository.Update(_mapper.Map<TEntity>(obj));
+            return _repository.Update(_mapper.Map<TEntity>(obj));
         }
 
         public void Update(IEnumerable<TModel> objs)
         {
             _repository.Update(_mapper.Map<IEnumerable<TEntity>>(objs));
         }
-        public int SaveChange()
+        public BaseResponse SaveChange()
         {
-            return _repository.SaveChange();
+            try
+            {
+                _repository.SaveChange();
+                return new BaseResponse
+                {
+                    Result = ResponseResultEnum.success
+                };
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse
+                {
+                    Messages = CheckMessage(e.InnerException?.Message ?? e.Message),
+                    Result = ResponseResultEnum.fail                    
+                };
+            }
         }
+
+        #region PRIVATES
+        private string CheckMessage(string message)
+        {
+            if (message.Contains("PRIMARY KEY"))
+                message = "PRIMARY KEY - Violação da restrição de Chave Primária. Não foi possível inserir";
+            if (message.Contains("UNIQUE KEY"))
+                message = "UNIQUE KEY - Violação da restrição de Unique Key. Não foi possível inserir";
+            return message;
+        }
+        #endregion
     }
 }
