@@ -6,7 +6,7 @@ using WS_ColineSoft.Domain.Interfaces.Repositories;
 
 namespace WS_ColineSoft.DAL.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : Entity
     {
         protected readonly ColineSoftContext _context;
         protected readonly DbSet<TEntity> _dbSet;
@@ -53,7 +53,7 @@ namespace WS_ColineSoft.DAL.Repositories
 
         public TEntity? Delete(TEntity obj)
         {
-            return _dbSet.Remove(obj).Entity ?? null;
+            return !obj.Padrao ? _dbSet.Remove(obj).Entity : null;
         }
 
         public TEntity? Delete(Guid id)
@@ -66,7 +66,8 @@ namespace WS_ColineSoft.DAL.Repositories
 
         public void Delete(IEnumerable<TEntity> objs)
         {
-            _dbSet.RemoveRange(objs);
+            var ret = objs.Where(e => !e.Padrao);
+            _dbSet.RemoveRange(ret);
         }
 
         public int SaveChange()

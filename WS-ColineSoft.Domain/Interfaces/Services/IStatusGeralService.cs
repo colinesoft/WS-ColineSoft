@@ -10,5 +10,10 @@ namespace WS_ColineSoft.Domain.Interfaces.Services
 {
     public interface IStatusGeralService: IBaseService<StatusGeralDTO, StatusGeralEntity>
     {
+        public Guid GetStatusGeralAtivo();
+        public Guid GetStatusGeralAguardando();
+        public Guid GetStatusGeralBloqueado();
+        public Guid GetStatusGeralRevisado();
+        public Guid GetStatusGeralInativo();
     }
 }

@@ -10,11 +10,15 @@ namespace WS_ColineSoft.WebAPI.Configuration
         public static IServiceCollection ResolveDependenciesServices(this IServiceCollection services)
         {
             services.AddTransient(typeof(IBaseService<,>), typeof(BaseService<,>));
+            services.AddTransient<IStatusGeralService, StatusGeralService>();
+            services.AddTransient<IStatusGeralService, StatusGeralService>();
             return services;
         }
         public static IServiceCollection ResolveDependenciesRepositories(this IServiceCollection services)
         {
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IStatusGeralRepository, StatusGeralRepository>();
+            services.AddTransient<ICorRepository, CorRepository>();
             return services;
         }
     }

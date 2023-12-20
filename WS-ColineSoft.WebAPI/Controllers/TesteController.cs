@@ -10,11 +10,14 @@ namespace WS_ColineSoft.WebAPI.Controllers
     public class TesteController : BaseController<TesteDTO, TesteEntity>
     {
         private readonly IBaseRepository<TesteEntity> _repository;
+        private readonly IStatusGeralService _statusGeralService;
         private readonly IMapper _mapper;
-        public TesteController(IBaseService<TesteDTO, TesteEntity> service, IBaseRepository<TesteEntity> repository, IMapper mapper) : base(service)
+        public TesteController(IBaseService<TesteDTO, TesteEntity> service, IBaseRepository<TesteEntity> repository, IMapper mapper, IStatusGeralService statusGeralService) : base(service)
         {
             _repository = repository;
             _mapper = mapper;
+            _statusGeralService = statusGeralService;
+            _statusGeralService = statusGeralService;
         }
 
         [HttpGet("ENTITYDTO")]
@@ -35,7 +38,7 @@ namespace WS_ColineSoft.WebAPI.Controllers
         [HttpGet("GetCripto")]
         public IActionResult GetCripto()
         {
-            return Ok("Teste");
+            return Ok(_statusGeralService.GetStatusGeralAtivo());
         }
     }
 }
