@@ -9,9 +9,9 @@ using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.DAL.Mappings
 {
-    public class CorMap : IEntityTypeConfiguration<CorEntity>
+    public abstract class BaseMap<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {
-        public void Configure(EntityTypeBuilder<CorEntity> builder)
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.ToTable("Cores");
             builder.HasKey(e => e.Id);
@@ -21,12 +21,6 @@ namespace WS_ColineSoft.DAL.Mappings
                 .HasColumnType("uniqueidentifier")
                 .HasDefaultValue(Guid.NewGuid())
                 .IsRequired();
-
-            builder.Property(e => e.Descritivo)
-                .HasColumnType("string")
-                .HasColumnName("Descritivo")
-                .IsRequired()
-                .HasMaxLength(30);
 
             builder.Property(e => e.IdStatusGeral)
                 .HasColumnType("uniqueidentifier")
@@ -53,24 +47,6 @@ namespace WS_ColineSoft.DAL.Mappings
             builder.Property(e => e.Padrao)
                 .HasColumnType("bit")
                 .HasColumnName("Padrao");
-
-            builder.HasOne(e => e.StatusGeral)
-                .WithMany()
-                .HasForeignKey(e => e.IdStatusGeral);
-
-            builder.HasOne(e => e.UsuarioAlteracao)
-                .WithMany()
-                .HasForeignKey(e => e.IdUsuarioAlteracao);
-            /*
-            // Relacionamentos 1x1 - STATUSGERAL
-            builder.HasOne(e => e.StatusGeral)
-                .WithMany()
-                .HasForeignKey(e => e.IdStatusGeral);
-
-            builder.HasOne(e => e.UsuarioAlteracao)
-                .WithMany()
-                .HasForeignKey(e => e.IdUsuarioAlteracao);
-            */
         }
     }
 }

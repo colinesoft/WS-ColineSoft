@@ -7,9 +7,22 @@ namespace WS_ColineSoft.WebAPI.Controllers
 {
     public class StatusGeralController : BaseController<StatusGeralDTO, StatusGeralEntity>
     {
-        public StatusGeralController(IBaseService<StatusGeralDTO, StatusGeralEntity> service) :base(service)
+
+        //Controller Funciona o Override
+        private readonly IStatusGeralService _statusGeralService;
+        public StatusGeralController(IStatusGeralService service) : base(service)
         {
-            
+            _statusGeralService = service;
+        }
+
+        public override IActionResult GetAll()
+        {
+            return Ok(_statusGeralService.GetAll());
+        }
+
+        public override IActionResult Get(Guid id)
+        {
+            return Ok(_statusGeralService.Get(id));
         }
     }
 }

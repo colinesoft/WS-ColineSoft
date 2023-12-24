@@ -8,6 +8,6 @@ namespace WS_ColineSoft.Domain.Entities
 {
     public class StatusGeralEntity: Entity
     {
-        public string Descritivo { get;set; }
+        public string Descritivo { get; set; }
     }
 }

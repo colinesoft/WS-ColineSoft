@@ -19,5 +19,8 @@ namespace WS_ColineSoft.DAL.Context
         public DbSet<TesteEntity> Teste { get;set; }
         public DbSet<CorEntity> Cores { get;set; }
         public DbSet<StatusGeralEntity> StatusGeral { get; set; }
+        public DbSet<UsuarioEntity> Usuarios { get; set; }
+        public DbSet<GrupoUsuarioEntity> GruposUsuarios { get; set; }
+
     }
 }

@@ -15,48 +15,42 @@ namespace WS_ColineSoft.DAL.Repositories
             _context = context;            
             _dbSet = _context.Set<TEntity>();
         }
-        public TEntity? Get(Guid id)
+        public virtual TEntity? Get(Guid id)
         {
             return _dbSet.Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            return _dbSet;
-        }
+        public virtual IEnumerable<TEntity> GetAll() => _dbSet;
 
-        public IQueryable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression)
-        {
-            return _dbSet.Where(expression);
-        }
+        public virtual IQueryable<TEntity> GetBy(Expression<Func<TEntity, bool>> expression) => _dbSet.Where(expression);
 
-        public TEntity? Insert(TEntity obj)
+        public virtual TEntity? Insert(TEntity obj)
         {
             return _dbSet.Add(obj).Entity ?? null;
         }
 
-        public void Insert(IEnumerable<TEntity> objs)
+        public virtual void Insert(IEnumerable<TEntity> objs)
         {
             _dbSet.AddRange(objs);
         }
 
-        public TEntity Update(TEntity obj)
+        public virtual TEntity Update(TEntity obj)
         {
             _context.Entry(obj).State = EntityState.Modified;
             return _dbSet.Update(obj).Entity;
         }
 
-        public void Update(IEnumerable<TEntity> objs)
+        public virtual void Update(IEnumerable<TEntity> objs)
         {
             _dbSet.UpdateRange(objs);
         }
 
-        public TEntity? Delete(TEntity obj)
+        public virtual TEntity? Delete(TEntity obj)
         {
-            return !obj.Padrao ? _dbSet.Remove(obj).Entity : null;
+            return (bool)!obj.Padrao ? _dbSet.Remove(obj).Entity : null;
         }
 
-        public TEntity? Delete(Guid id)
+        public virtual TEntity? Delete(Guid id)
         {
             var obj = Get(id);
             if(obj != null)
@@ -64,9 +58,9 @@ namespace WS_ColineSoft.DAL.Repositories
             return null;
         }
 
-        public void Delete(IEnumerable<TEntity> objs)
+        public virtual void Delete(IEnumerable<TEntity> objs)
         {
-            var ret = objs.Where(e => !e.Padrao);
+            var ret = objs.Where(e => (bool)!e.Padrao);
             _dbSet.RemoveRange(ret);
         }
 

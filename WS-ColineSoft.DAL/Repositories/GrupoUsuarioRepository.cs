@@ -9,15 +9,10 @@ using WS_ColineSoft.Domain.Interfaces.Repositories;
 
 namespace WS_ColineSoft.DAL.Repositories
 {
-    public class StatusGeralRepository: BaseRepository<StatusGeralEntity>, IStatusGeralRepository
+    public class GrupoUsuarioRepository : BaseRepository<GrupoUsuarioEntity>, IGrupoUsuarioRepository
     {
-        public StatusGeralRepository(ColineSoftContext context) : base(context)
-        {            
-        }
-
-        public override IEnumerable<StatusGeralEntity> GetAll()
+        public GrupoUsuarioRepository(ColineSoftContext context) : base(context)
         {
-            return base.GetAll();
         }
     }
 }

@@ -11,9 +11,9 @@ using WS_ColineSoft.Domain.Interfaces.Services;
 
 namespace WS_ColineSoft.Services
 {
-    public class CorService : BaseService<CorDTO, CorEntity>, ICorService
+    public class GrupoUsuarioService : BaseService<GrupoUsuarioDTO, GrupoUsuarioEntity>, IGrupoUsuarioService
     {
-        public CorService(ICorRepository repository, IMapper mapper) : base(repository, mapper)
+        public GrupoUsuarioService(IGrupoUsuarioRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
     }

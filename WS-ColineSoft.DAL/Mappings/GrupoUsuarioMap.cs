@@ -9,12 +9,12 @@ using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.DAL.Mappings
 {
-    public class CorMap : IEntityTypeConfiguration<CorEntity>
+    public class GrupoUsuarioMap : IEntityTypeConfiguration<GrupoUsuarioEntity>
     {
-        public void Configure(EntityTypeBuilder<CorEntity> builder)
+        public void Configure(EntityTypeBuilder<GrupoUsuarioEntity> builder)
         {
-            builder.ToTable("Cores");
-            builder.HasKey(e => e.Id);
+            builder.ToTable("GruposUsuarios");
+            builder.HasKey(x => x.Id);
 
             builder.Property(e => e.Id)
                 .HasColumnName("Id")
@@ -23,10 +23,9 @@ namespace WS_ColineSoft.DAL.Mappings
                 .IsRequired();
 
             builder.Property(e => e.Descritivo)
-                .HasColumnType("string")
                 .HasColumnName("Descritivo")
-                .IsRequired()
-                .HasMaxLength(30);
+                .HasColumnType("varchar(15)")
+                .IsRequired();
 
             builder.Property(e => e.IdStatusGeral)
                 .HasColumnType("uniqueidentifier")
@@ -47,30 +46,13 @@ namespace WS_ColineSoft.DAL.Mappings
 
             builder.Property(e => e.IdUsuarioAlteracao)
                 .HasColumnType("uniqueidentifier")
-                .HasColumnName("IdUsuarioAlteracao")
-                .IsRequired();
+                .HasColumnName("IdUsuarioAlteracao");
 
             builder.Property(e => e.Padrao)
                 .HasColumnType("bit")
                 .HasColumnName("Padrao");
 
-            builder.HasOne(e => e.StatusGeral)
-                .WithMany()
-                .HasForeignKey(e => e.IdStatusGeral);
 
-            builder.HasOne(e => e.UsuarioAlteracao)
-                .WithMany()
-                .HasForeignKey(e => e.IdUsuarioAlteracao);
-            /*
-            // Relacionamentos 1x1 - STATUSGERAL
-            builder.HasOne(e => e.StatusGeral)
-                .WithMany()
-                .HasForeignKey(e => e.IdStatusGeral);
-
-            builder.HasOne(e => e.UsuarioAlteracao)
-                .WithMany()
-                .HasForeignKey(e => e.IdUsuarioAlteracao);
-            */
         }
     }
 }

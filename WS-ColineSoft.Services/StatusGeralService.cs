@@ -13,10 +13,20 @@ namespace WS_ColineSoft.Services
 {
     public class StatusGeralService: BaseService<StatusGeralDTO, StatusGeralEntity>, IStatusGeralService
     {
-        public StatusGeralService(IBaseRepository<StatusGeralEntity> repository, IMapper mapper): base(repository, mapper)
-        {            
+        public StatusGeralService(IStatusGeralRepository repository, IMapper mapper): base(repository, mapper)
+        {
         }
 
+        public override IEnumerable<StatusGeralDTO> GetAll()
+        {
+            var v1 = _repository.GetAll();
+            return base.GetAll();
+        }
+
+        public override StatusGeralDTO? Get(Guid id)
+        {
+            return base.Get(id);
+        }
 
         #region RETORNO STATUS
         private Guid GetStatusGeralPorDescritivo(string descritivo)

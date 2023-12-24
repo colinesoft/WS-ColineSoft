@@ -1,20 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.DAL.Mappings
 {
-    public class CorMap : IEntityTypeConfiguration<CorEntity>
+    public class UsuarioMap : IEntityTypeConfiguration<UsuarioEntity>
     {
-        public void Configure(EntityTypeBuilder<CorEntity> builder)
+        public void Configure(EntityTypeBuilder<UsuarioEntity> builder)
         {
-            builder.ToTable("Cores");
-            builder.HasKey(e => e.Id);
+            builder.ToTable("Usuarios");
+            builder.HasKey(x => x.Id);
 
             builder.Property(e => e.Id)
                 .HasColumnName("Id")
@@ -22,11 +17,30 @@ namespace WS_ColineSoft.DAL.Mappings
                 .HasDefaultValue(Guid.NewGuid())
                 .IsRequired();
 
-            builder.Property(e => e.Descritivo)
-                .HasColumnType("string")
-                .HasColumnName("Descritivo")
-                .IsRequired()
-                .HasMaxLength(30);
+            builder.Property(e => e.Nome)
+                .HasColumnName("Nome")
+                .HasColumnType("varchar(25)")
+                .IsRequired();
+
+            builder.Property(e => e.Email)
+                .HasColumnName("Email")
+                .HasColumnType("varchar(100)")
+                .IsRequired();
+
+            builder.Property(e => e.Senha)
+                .HasColumnName("Senha")
+                .HasColumnType("varchar(32)")
+                .IsRequired();
+
+            builder.Property(e => e.Celular)
+                .HasColumnName("Celular")
+                .HasColumnType("varchar(11)")
+                .IsRequired();
+
+            builder.Property(e => e.IdGrupoUsuario)
+                .HasColumnType("uniqueidentifier")
+                .HasColumnName("IdGrupoUsuario")
+                .IsRequired();
 
             builder.Property(e => e.IdStatusGeral)
                 .HasColumnType("uniqueidentifier")
@@ -52,7 +66,13 @@ namespace WS_ColineSoft.DAL.Mappings
 
             builder.Property(e => e.Padrao)
                 .HasColumnType("bit")
-                .HasColumnName("Padrao");
+                .HasColumnName("Padrao")
+                .HasDefaultValue(false);
+            
+            //Relacionamento de 1x1
+            builder.HasOne(e => e.GrupoUsuario)
+                .WithMany()
+                .HasForeignKey(e => e.IdGrupoUsuario);
 
             builder.HasOne(e => e.StatusGeral)
                 .WithMany()
@@ -61,16 +81,6 @@ namespace WS_ColineSoft.DAL.Mappings
             builder.HasOne(e => e.UsuarioAlteracao)
                 .WithMany()
                 .HasForeignKey(e => e.IdUsuarioAlteracao);
-            /*
-            // Relacionamentos 1x1 - STATUSGERAL
-            builder.HasOne(e => e.StatusGeral)
-                .WithMany()
-                .HasForeignKey(e => e.IdStatusGeral);
-
-            builder.HasOne(e => e.UsuarioAlteracao)
-                .WithMany()
-                .HasForeignKey(e => e.IdUsuarioAlteracao);
-            */
         }
     }
 }

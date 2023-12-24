@@ -17,56 +17,57 @@ namespace WS_ColineSoft.Services
             this._mapper = mapper;
         }
 
-        public TEntity? Delete(TModel obj)
+        public virtual TEntity? Delete(TModel obj)
         {
             return _repository.Delete(_mapper.Map<TEntity>(obj));
         }
 
-        public TEntity? Delete(Guid id)
+        public virtual TEntity? Delete(Guid id)
         {
             return _repository.Delete(id);
         }
 
-        public void Delete(IEnumerable<TModel> objs)
+        public virtual void Delete(IEnumerable<TModel> objs)
         {
             _repository.Delete(_mapper.Map<IEnumerable<TEntity>>(objs));
         }
 
-        public TModel? Get(Guid id)
+        public virtual TModel? Get(Guid id)
         {
             return _mapper.Map<TModel>(_repository.Get(id));
         }
 
-        public IEnumerable<TModel> GetAll()
+        public virtual IEnumerable<TModel> GetAll()
         {
-            return _mapper.Map<IEnumerable<TModel>>(_repository.GetAll());
+            var ret = _mapper.Map<IEnumerable<TModel>>(_repository.GetAll());
+            return ret;
         }
 
-        public IQueryable<TModel> GetBy(Expression<Func<TEntity, bool>> expression)
+        public virtual IQueryable<TModel> GetBy(Expression<Func<TEntity, bool>> expression)
         {
             return _mapper.Map<IQueryable<TModel>>(expression);
         }
 
-        public TEntity? Insert(TModel obj)
+        public virtual TEntity? Insert(TModel obj)
         {
             return _repository.Insert(_mapper.Map<TEntity>(obj));           
         }
 
-        public void Insert(IEnumerable<TModel> objs)
+        public virtual void Insert(IEnumerable<TModel> objs)
         {
             _repository.Insert(_mapper.Map<IEnumerable<TEntity>>(objs));
         }
 
-        public TEntity? Update(TModel obj)
+        public virtual TEntity? Update(TModel obj)
         {
             return _repository.Update(_mapper.Map<TEntity>(obj));
         }
 
-        public void Update(IEnumerable<TModel> objs)
+        public virtual void Update(IEnumerable<TModel> objs)
         {
             _repository.Update(_mapper.Map<IEnumerable<TEntity>>(objs));
         }
-        public BaseResponse SaveChange()
+        public virtual BaseResponse SaveChange()
         {
             try
             {

@@ -6,7 +6,8 @@ namespace WS_ColineSoft.WebAPI.Controllers
 {
     public class CorController : BaseController<CorDTO, CorEntity>
     {
-        public CorController(IBaseService<CorDTO, CorEntity> service) : base(service)
+        private readonly ICorService _service;
+        public CorController(ICorService service) : base(service)
         {
         }
     }
