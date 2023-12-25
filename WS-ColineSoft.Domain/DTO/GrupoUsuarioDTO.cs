@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using WS_ColineSoft.Domain.Entities;
+﻿using System.Text.Json.Serialization;
 
 namespace WS_ColineSoft.Domain.DTO
 {

@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using WS_ColineSoft.Domain.DTO;
-using WS_ColineSoft.Domain.Entities;
 using WS_ColineSoft.Domain.Validators;
 
 namespace WS_ColineSoft.WebAPI.Configuration

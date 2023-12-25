@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
-using WS_ColineSoft.Domain.DTO;
+﻿using WS_ColineSoft.Domain.DTO;
 using WS_ColineSoft.Domain.Entities;
 using WS_ColineSoft.Domain.Interfaces.Services;
 
