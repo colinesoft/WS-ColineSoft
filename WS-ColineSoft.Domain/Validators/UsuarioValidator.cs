@@ -5,25 +5,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WS_ColineSoft.Domain.DTO;
+using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.Domain.Validators
 {
-    public class UsuarioValidator: BaseValidator<UsuarioDTO>
+    public class UsuarioValidator: AbstractValidator<UsuarioDTO>
     {
         public UsuarioValidator()
         {
+            RuleFor(e => e.Id)
+                .NotEmpty().WithMessage("Campo Id não poder ser vazio");
+            
             RuleFor(e => e.Nome)
-                .NotEmpty().WithMessage("O campo nome é obrigatório")
-                .Length(25).WithMessage("O tamanho máximo para o nome é de 25 posições");
+                .NotEmpty().WithMessage("O campo Descrição é obrigatório")
+                .Length(25).WithMessage("O tamanho máximo para a Nome é de 25 posições");                
+
             RuleFor(e => e.Email)
-                .NotEmpty().WithMessage("O campo email é obrigatório")
-                .Length(100).WithMessage("O tamanho máximo para o email é de 100 posições");
+                .NotEmpty().WithMessage("Campo Email não pode ser vazio")
+                .Length(100).WithMessage("O tamanho máximo para Email é de 100 posições");
+
             RuleFor(e => e.Senha)
-                .NotEmpty().WithMessage("O campo senha é obrigatório")
-                .Length(32).WithMessage("O tamanho máximo para a senha é de 32 posições");
+                .NotEmpty().WithMessage("Campo Senha não pode ser vazio")
+                .Length(32).WithMessage("O tamanho máximo para Senha é de 32 posições");
+
             RuleFor(e => e.Celular)
-                .NotEmpty().WithMessage("O campo celular é obrigatório")
-                .Length(11).WithMessage("O tamanho máximo para a Celular é de 11 posições");
+                .NotEmpty().WithMessage("Campo Celular não pode ser vazio")
+                .Length(11).WithMessage("O tamanho máximo para Celular é de 11 posições");
+
+            RuleFor(e => e.IdGrupoUsuario)
+                .NotEmpty().WithMessage("Campo IdGrupoUsuario não pode ser vazio");
+
+            RuleFor(e => e.IdStatusGeral)
+                .NotEmpty().WithMessage("Campo IdStatusGeral não pode ser vazio");
+
+            RuleFor(e => e.IdUsuarioAlteracao)
+                .NotEmpty().WithMessage("Campo IdUsuarioAlteracao não pode ser vazio");
+
+            RuleFor(e => e.DataCadastro)
+                .NotEmpty().WithMessage("Campo DataCadastro não pode ser vazio");
+
+            RuleFor(e => e.DataAlteracao)
+                .NotEmpty().WithMessage("Campo DataAlteracao não pode ser vazio");
         }
     }
 }

@@ -13,5 +13,7 @@ namespace WS_ColineSoft.Domain.Entities
         public Guid IdStatusGeral { get; set; }
         public Guid? IdUsuarioAlteracao { get; set; }
         public string Descritivo {get;set;}
+
+        public StatusGeralEntity StatusGeral { get; set; }
     }
 }

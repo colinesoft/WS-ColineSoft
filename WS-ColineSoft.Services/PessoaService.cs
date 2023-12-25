@@ -11,10 +11,11 @@ using WS_ColineSoft.Domain.Interfaces.Services;
 
 namespace WS_ColineSoft.Services
 {
-    public class UsuarioService : BaseService<UsuarioDTO, UsuarioEntity>, IUsuarioService
+    public class PessoaService : BaseService<PessoaDTO, PessoaEntity>, IPessoaService
     {
-        public UsuarioService(IUsuarioRepository repository, IMapper mapper) : base(repository, mapper)
+        public PessoaService(IPessoaRepository repository, IMapper mapper) : base(repository, mapper)
         {
+
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WS_ColineSoft.Domain.DTO;
+using WS_ColineSoft.Domain.Utils;
 
 namespace WS_ColineSoft.Domain.Validators
 {
@@ -13,16 +9,15 @@ namespace WS_ColineSoft.Domain.Validators
         public BaseValidator()
         {
             RuleFor(e => e.Id)
-                .NotEmpty().WithMessage("O campo Id é obrigatório");
+                .NotEmpty().WithMessage(DefaultFluentMessages.MandatoryValue);
             RuleFor(e => e.DataAlteracao)
-                .NotEmpty().WithMessage("O campo DataAlteração é obrigatório");
+                .NotEmpty().WithMessage(DefaultFluentMessages.MandatoryValue);
             RuleFor(e => e.DataCadastro)
-                .NotEmpty().WithMessage("O campo DataAlteração é obrigatório");
-            /*RuleFor(e => e.StatusGeral)
-                .NotEmpty().WithMessage("O StatusGeral é obrigatório");
-            RuleFor(e => e.UsuarioAlteracao)
-                .NotEmpty().WithMessage("O UsuarioAlteração é obrigatório");*/
-
+                .NotEmpty().WithMessage(DefaultFluentMessages.MandatoryValue);
+            RuleFor(e => e.IdStatusGeral)
+                .NotEmpty().WithMessage(DefaultFluentMessages.MandatoryValue);
+            RuleFor(e => e.IdUsuarioAlteracao)
+                .NotEmpty().WithMessage(DefaultFluentMessages.MandatoryValue);
         }
     }
 }

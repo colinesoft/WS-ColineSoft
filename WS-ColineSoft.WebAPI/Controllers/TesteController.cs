@@ -19,6 +19,7 @@ namespace WS_ColineSoft.WebAPI.Controllers
         [HttpGet("GetAll")]
         public IActionResult Get()
         {
+            //var v1 =_colineSoftContext.Usuarios;
             return Ok(_colineSoftContext.Teste);
         }
     }

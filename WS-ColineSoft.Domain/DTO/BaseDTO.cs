@@ -5,15 +5,15 @@ namespace WS_ColineSoft.Domain.DTO
     public abstract class BaseDTO
     {
         public Guid Id { get; set; }
-        public string DataCadastro { get; set; }
-        public string DataAlteracao { get; set; }
+        public DateTime DataCadastro { get; set; }
+        public DateTime DataAlteracao { get; set; }
         [JsonIgnore]
         public Guid IdStatusGeral { get; set; }
         [JsonIgnore]
         public Guid IdUsuarioAlteracao { get; set; }
-        public bool Padrao { get; set; }
+        public bool? Padrao { get; set; }
 
         public StatusGeralDTO StatusGeral { get; set; }
-        public UsuarioDTO UsuarioAlteracao { get; set; }
+        //public UsuarioDTO UsuarioAlteracao { get; set; }
     }
 }

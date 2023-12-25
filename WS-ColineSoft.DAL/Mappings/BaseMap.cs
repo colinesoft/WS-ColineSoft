@@ -13,7 +13,7 @@ namespace WS_ColineSoft.DAL.Mappings
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            builder.ToTable("Cores");
+            //builder.ToTable("Cores");
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Id)
@@ -47,6 +47,11 @@ namespace WS_ColineSoft.DAL.Mappings
             builder.Property(e => e.Padrao)
                 .HasColumnType("bit")
                 .HasColumnName("Padrao");
+
+            //Relacionamento 1x1
+            builder.HasOne(e => e.StatusGeral)
+                .WithMany()
+                .HasForeignKey(e => e.IdStatusGeral);
         }
     }
 }

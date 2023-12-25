@@ -6,7 +6,7 @@ namespace WS_ColineSoft.WebAPI.Controllers
 {
     public class GrupoUsuarioController : BaseController<GrupoUsuarioDTO, GrupoUsuarioEntity>
     {
-        public GrupoUsuarioController(IBaseService<GrupoUsuarioDTO, GrupoUsuarioEntity> service) : base(service)
+        public GrupoUsuarioController(IGrupoUsuarioService service) : base(service)
         {
         }
     }

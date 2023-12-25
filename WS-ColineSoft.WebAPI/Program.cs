@@ -1,6 +1,8 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Text.Json.Serialization;
 using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.Domain.DTO;
 using WS_ColineSoft.Domain.Validators;
@@ -12,7 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers()
-    .AddFluentValidation();
+    .AddFluentValidation()
+    .AddJsonOptions(opt => {
+        //Resolvendo problema de object cycle
+        opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -42,11 +48,14 @@ builder.Services.AddAutoMapper(typeof(ViewModelToDomainConfig));
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(e => {
+        e.DocExpansion(DocExpansion.None);
+    });
 }
 
 app.UseHttpsRedirection();

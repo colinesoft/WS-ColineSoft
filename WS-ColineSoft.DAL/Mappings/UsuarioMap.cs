@@ -1,5 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.DAL.Mappings
@@ -9,66 +15,61 @@ namespace WS_ColineSoft.DAL.Mappings
         public void Configure(EntityTypeBuilder<UsuarioEntity> builder)
         {
             builder.ToTable("Usuarios");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Id)
+                .IsRequired()
                 .HasColumnName("Id")
                 .HasColumnType("uniqueidentifier")
-                .HasDefaultValue(Guid.NewGuid())
-                .IsRequired();
+                .HasDefaultValue(Guid.NewGuid());
 
             builder.Property(e => e.Nome)
+                .IsRequired()
                 .HasColumnName("Nome")
-                .HasColumnType("varchar(25)")
-                .IsRequired();
+                .HasColumnType("varchar(25)");
 
             builder.Property(e => e.Email)
+                .IsRequired()
                 .HasColumnName("Email")
-                .HasColumnType("varchar(100)")
-                .IsRequired();
-
-            builder.Property(e => e.Senha)
-                .HasColumnName("Senha")
-                .HasColumnType("varchar(32)")
-                .IsRequired();
+                .HasColumnType("varchar(100)");
 
             builder.Property(e => e.Celular)
+                .IsRequired()
                 .HasColumnName("Celular")
-                .HasColumnType("varchar(11)")
-                .IsRequired();
+                .HasColumnType("varchar(11)");
 
-            builder.Property(e => e.IdGrupoUsuario)
-                .HasColumnType("uniqueidentifier")
-                .HasColumnName("IdGrupoUsuario")
-                .IsRequired();
-
-            builder.Property(e => e.IdStatusGeral)
-                .HasColumnType("uniqueidentifier")
-                .HasColumnName("IdStatusGeral")
-                .IsRequired();
+            builder.Property(e => e.Senha)
+                .IsRequired()
+                .HasColumnName("Senha")
+                .HasColumnType("varchar(32)");
 
             builder.Property(e => e.DataCadastro)
-                .HasColumnType("datetime")
-                .HasColumnName("DataCadastro")
                 .IsRequired()
+                .HasColumnName("DataCadastro")
+                .HasColumnType("datetime")
                 .HasDefaultValueSql("getdate()");
 
             builder.Property(e => e.DataAlteracao)
-                .HasColumnType("datetime")
-                .HasColumnName("DataAlteracao")
                 .IsRequired()
+                .HasColumnName("DataAlteracao")
+                .HasColumnType("datetime")
                 .HasDefaultValueSql("getdate()");
 
-            builder.Property(e => e.IdUsuarioAlteracao)
-                .HasColumnType("uniqueidentifier")
-                .HasColumnName("IdUsuarioAlteracao")
-                .IsRequired();
+            builder.Property(e => e.IdStatusGeral)
+                .IsRequired()
+                .HasColumnName("IdStatusGeral")
+                .HasColumnType("uniqueidentifier");
 
-            builder.Property(e => e.Padrao)
-                .HasColumnType("bit")
-                .HasColumnName("Padrao")
-                .HasDefaultValue(false);
-            
+            builder.Property(e => e.IdUsuarioAlteracao)
+                .IsRequired()
+                .HasColumnName("IdUsuarioAlteracao")
+                .HasColumnType("uniqueidentifier");
+
+            builder.Property(e => e.IdGrupoUsuario)
+                .IsRequired()
+                .HasColumnName("IdGrupoUsuario")
+                .HasColumnType("uniqueidentifier");
+
             //Relacionamento de 1x1
             builder.HasOne(e => e.GrupoUsuario)
                 .WithMany()
@@ -77,10 +78,6 @@ namespace WS_ColineSoft.DAL.Mappings
             builder.HasOne(e => e.StatusGeral)
                 .WithMany()
                 .HasForeignKey(e => e.IdStatusGeral);
-
-            builder.HasOne(e => e.UsuarioAlteracao)
-                .WithMany()
-                .HasForeignKey(e => e.IdUsuarioAlteracao);
         }
     }
 }

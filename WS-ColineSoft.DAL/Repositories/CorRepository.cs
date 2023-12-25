@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WS_ColineSoft.DAL.Context;
+﻿using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.Domain.Entities;
 using WS_ColineSoft.Domain.Interfaces.Repositories;
 
@@ -16,16 +10,23 @@ namespace WS_ColineSoft.DAL.Repositories
         {
         }
 
+        /*
+        public override CorEntity? Get(Guid id)
+        {
+            return _context.Cores
+                .Include(e => e.StatusGeral)
+                .Include(e => e.UsuarioAlteracao).ThenInclude(e => e.GrupoUsuario)
+                .Include(e => e.UsuarioAlteracao).ThenInclude(e => e.StatusGeral)
+                .AsNoTracking()                
+                .FirstOrDefault(e => e.Id == id);
+        }
         public override IEnumerable<CorEntity> GetAll()
         {
-            var a = _context.Cores;
-            var b = _context.StatusGeral;
-            var c = _context.Usuarios;
-            var v1 = _context.Cores
+            return _context.Cores
                 .Include(e => e.StatusGeral)
-                .Include(e => e.UsuarioAlteracao)
+                .Include(e => e.UsuarioAlteracao).ThenInclude(e => e.GrupoUsuario)
                 .AsNoTracking();
-            return v1;
         }
+        */
     }
 }

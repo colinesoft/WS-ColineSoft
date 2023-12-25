@@ -52,7 +52,10 @@ namespace WS_ColineSoft.DAL.Mappings
                 .HasColumnType("bit")
                 .HasColumnName("Padrao");
 
-
+            //Relacionamento 1x1
+            builder.HasOne(e => e.StatusGeral)
+                .WithMany()
+                .HasForeignKey(e => e.IdStatusGeral);
         }
     }
 }

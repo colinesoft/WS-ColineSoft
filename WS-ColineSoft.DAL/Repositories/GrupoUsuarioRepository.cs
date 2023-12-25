@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,19 @@ namespace WS_ColineSoft.DAL.Repositories
         public GrupoUsuarioRepository(ColineSoftContext context) : base(context)
         {
         }
+
+        public override IEnumerable<GrupoUsuarioEntity> GetAll()
+        {
+            var v1 = _context.GruposUsuarios;
+            var v2 = _context.StatusGeral;
+            var v3 = _context.Usuarios;
+
+            return _context.GruposUsuarios
+                .Include(e => e.StatusGeral)
+                //.Include(e => e.Usuarios)
+                .AsNoTracking();
+        }
+
+        public override GrupoUsuarioEntity? Get(Guid id) => GetAll().FirstOrDefault(e => e.Id == id);
     }
 }

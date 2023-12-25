@@ -53,7 +53,7 @@ namespace WS_ColineSoft.DAL.Mappings
             builder.Property(e => e.Padrao)
                 .HasColumnType("bit")
                 .HasColumnName("Padrao");
-
+            /*
             builder.HasOne(e => e.StatusGeral)
                 .WithMany()
                 .HasForeignKey(e => e.IdStatusGeral);
@@ -61,6 +61,7 @@ namespace WS_ColineSoft.DAL.Mappings
             builder.HasOne(e => e.UsuarioAlteracao)
                 .WithMany()
                 .HasForeignKey(e => e.IdUsuarioAlteracao);
+            */
             /*
             // Relacionamentos 1x1 - STATUSGERAL
             builder.HasOne(e => e.StatusGeral)

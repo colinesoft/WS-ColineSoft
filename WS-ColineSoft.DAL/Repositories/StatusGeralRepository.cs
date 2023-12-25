@@ -14,10 +14,5 @@ namespace WS_ColineSoft.DAL.Repositories
         public StatusGeralRepository(ColineSoftContext context) : base(context)
         {            
         }
-
-        public override IEnumerable<StatusGeralEntity> GetAll()
-        {
-            return base.GetAll();
-        }
     }
 }

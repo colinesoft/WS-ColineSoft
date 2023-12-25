@@ -8,7 +8,7 @@ using WS_ColineSoft.Domain.Entities;
 
 namespace WS_ColineSoft.Domain.Interfaces.Services
 {
-    public interface IUsuarioService: IBaseService<UsuarioDTO, UsuarioEntity>
+    public interface IPessoaService: IBaseService<PessoaDTO, PessoaEntity>
     {
     }
 }

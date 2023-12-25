@@ -1,4 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.Domain.Entities;
 using WS_ColineSoft.Domain.Interfaces.Repositories;
@@ -14,12 +19,12 @@ namespace WS_ColineSoft.DAL.Repositories
 
         public override IEnumerable<UsuarioEntity> GetAll()
         {
-            var v1 = _context.Usuarios
-                .Include(e => e.GrupoUsuario)
-                .Include(e => e.UsuarioAlteracao)
+            return _context.Usuarios
+                .Include(e => e.GrupoUsuario).ThenInclude(e => e.StatusGeral)
                 .Include(e => e.StatusGeral)
                 .AsNoTracking();
-            return v1;
         }
+
+        public override UsuarioEntity? Get(Guid id) => GetAll().FirstOrDefault(e => e.Id == id);
     }
 }
