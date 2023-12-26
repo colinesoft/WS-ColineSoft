@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(e =>
     e.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
-        In = ParameterLocation.Query,
+        In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
@@ -46,7 +46,7 @@ builder.Services.AddSwaggerGen(e =>
                 },
                 Scheme = "oauth2",
                 Name = "Bearer",
-                In = ParameterLocation.Query
+                In = ParameterLocation.Header
             },
             new List<string>()
         }
