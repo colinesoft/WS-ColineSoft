@@ -18,6 +18,7 @@ namespace WS_ColineSoft.WebAPI.AutoMapper
             CreateMap<StatusGeralEntity, StatusGeralDTO>().ReverseMap();
             CreateMap<UsuarioEntity, UsuarioDTO>().ReverseMap();
             CreateMap<PessoaEntity, PessoaDTO>().ReverseMap();
+            CreateMap<PessoaEnderecoEntity, PessoaEnderecoDTO>().ReverseMap();
         }
     }
 }

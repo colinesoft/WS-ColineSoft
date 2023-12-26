@@ -14,6 +14,7 @@ namespace WS_ColineSoft.WebAPI.Configuration
             service.AddTransient<IValidator<GrupoUsuarioDTO>, GrupoUsuarioValidator>();
             service.AddTransient<IValidator<UsuarioDTO>, UsuarioValidator>();
             service.AddTransient<IValidator<PessoaDTO>, PessoaValidator>();
+            service.AddTransient<IValidator<PessoaEnderecoDTO>, PessoaEnderecoValidator>();
             return service;
         }
     }

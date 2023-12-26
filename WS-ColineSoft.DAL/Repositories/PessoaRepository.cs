@@ -13,7 +13,8 @@ namespace WS_ColineSoft.DAL.Repositories
         public override IEnumerable<PessoaEntity> GetAll()
         {
             return _context.Pessoas.AsNoTracking()
-                .Include(e => e.StatusGeral);
+                .Include(e => e.StatusGeral)
+                .Include(e => e.Enderecos);
         }
 
         public override PessoaEntity? Get(Guid id) => GetAll().FirstOrDefault(e => e.Id == id);

@@ -22,6 +22,7 @@ namespace WS_ColineSoft.DAL.Context
         public DbSet<GrupoUsuarioEntity> GruposUsuarios { get; set; }
         public DbSet<UsuarioEntity> Usuarios { get; set; }
         public DbSet<PessoaEntity> Pessoas { get; set; }
+        public DbSet<PessoaEnderecoEntity> PessoasEnderecos { get; set; }
 
     }
 }

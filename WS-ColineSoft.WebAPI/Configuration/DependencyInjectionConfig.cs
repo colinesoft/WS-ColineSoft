@@ -15,6 +15,7 @@ namespace WS_ColineSoft.WebAPI.Configuration
             services.AddTransient<IGrupoUsuarioService, GrupoUsuarioService>();
             services.AddTransient<IUsuarioService, UsuarioService>();
             services.AddTransient<IPessoaService, PessoaService>();
+            services.AddTransient<IPessoaEnderecoService, PessoaEnderecoService>();
             return services;
         }
         public static IServiceCollection ResolveDependenciesRepositories(this IServiceCollection services)
@@ -25,6 +26,7 @@ namespace WS_ColineSoft.WebAPI.Configuration
             services.AddTransient<IGrupoUsuarioRepository, GrupoUsuarioRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IPessoaRepository, PessoaRepository>();
+            services.AddTransient<IPessoaEnderecoRepository, PessoaEnderecoRepository>();
             return services;
         }
     }
