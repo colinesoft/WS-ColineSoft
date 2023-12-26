@@ -13,13 +13,8 @@ namespace WS_ColineSoft.DAL.Repositories
 
         public override IEnumerable<GrupoUsuarioEntity> GetAll()
         {
-            var v1 = _context.GruposUsuarios;
-            var v2 = _context.StatusGeral;
-            var v3 = _context.Usuarios;
-
             return _context.GruposUsuarios
                 .Include(e => e.StatusGeral)
-                //.Include(e => e.Usuarios)
                 .AsNoTracking();
         }
 

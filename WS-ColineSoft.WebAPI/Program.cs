@@ -1,7 +1,11 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Text;
 using System.Text.Json.Serialization;
 using WS_ColineSoft.DAL.Context;
 using WS_ColineSoft.Domain.DTO;
@@ -21,7 +25,33 @@ builder.Services.AddControllers()
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(e =>
+{
+    e.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        In = ParameterLocation.Query,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    e.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Query
+            },
+            new List<string>()
+        }
+    });
+});
 
 builder.Services.AddTransient<IValidator<TesteDTO>, TesteValidator>();
 
@@ -45,6 +75,25 @@ builder.Services.ResolveValidators();
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(DomainToViewModelConfig));
 builder.Services.AddAutoMapper(typeof(ViewModelToDomainConfig));
+//Authentication JWT
+//Antenção que o Swagger tb foi alterado para permitir inclusão do token nas requisições
+builder.Services.AddAuthentication(e =>
+{
+    //Foi necessário instalar um pacote JwtBearer
+    e.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    e.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(e =>
+{
+    e.RequireHttpsMetadata = false;
+    e.SaveToken = true;
+    e.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key.Secret)),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 var app = builder.Build();
 

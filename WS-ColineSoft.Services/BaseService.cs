@@ -43,9 +43,9 @@ namespace WS_ColineSoft.Services
             return ret;
         }
 
-        public virtual IQueryable<TModel> GetBy(Expression<Func<TEntity, bool>> expression)
+        public virtual IEnumerable<TModel> GetBy(Expression<Func<TEntity, bool>> expression)
         {
-            return _mapper.Map<IQueryable<TModel>>(expression);
+            return _mapper.Map<IEnumerable<TModel>>(_repository.GetBy(expression));
         }
 
         public virtual TEntity? Insert(TModel obj)

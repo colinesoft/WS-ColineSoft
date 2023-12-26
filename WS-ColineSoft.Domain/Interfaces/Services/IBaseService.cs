@@ -10,7 +10,7 @@ namespace WS_ColineSoft.Domain.Interfaces.Services
         #region BASE BANCO DE DADOS
         TModel? Get(Guid id);
         IEnumerable<TModel> GetAll();
-        IQueryable<TModel> GetBy(Expression<Func<TEntity, bool>> expression); 
+        IEnumerable<TModel> GetBy(Expression<Func<TEntity, bool>> expression); 
 
         TEntity? Insert(TModel obj);
         void Insert(IEnumerable<TModel> objs);
