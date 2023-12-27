@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -94,6 +95,15 @@ builder.Services.AddAuthentication(e =>
         ValidateAudience = false
     };
 });
+
+//SERILOG
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("logs/arquivo.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
