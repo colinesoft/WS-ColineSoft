@@ -9,7 +9,7 @@ namespace WS_ColineSoft.WebAPI.Service
 {
     public class TokenService
     {
-        public static object GenerateToken(UsuarioDTO usuario)
+        public static object GenerateToken(UsuarioDTO usr)
         {
             //obtem a chave privada (secreta)
             var key = Encoding.ASCII.GetBytes(Key.Secret);
@@ -18,7 +18,9 @@ namespace WS_ColineSoft.WebAPI.Service
             var tokenConfig = new SecurityTokenDescriptor
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[] {
-                    new Claim("Id", usuario.Id.ToString())
+                    new Claim(ClaimTypes.Name, usr.Nome),
+                    new Claim(ClaimTypes.Role, usr.GrupoUsuario.Descritivo),
+                    new Claim("Id", usr.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
