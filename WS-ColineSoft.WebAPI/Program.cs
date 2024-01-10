@@ -1,4 +1,3 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,8 +8,6 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Text;
 using System.Text.Json.Serialization;
 using WS_ColineSoft.DAL.Context;
-using WS_ColineSoft.Domain.DTO;
-using WS_ColineSoft.Domain.Validators;
 using WS_ColineSoft.Functions;
 using WS_ColineSoft.WebAPI.AutoMapper;
 using WS_ColineSoft.WebAPI.Configuration;
@@ -21,11 +18,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddFluentValidation()
     .AddJsonOptions(opt => {
-        //Resolvendo problema de object cycle
+        //Resolvendo problema de object cycle (OBJECT CYCLE)
         opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+#region SWAGGER Config
 builder.Services.AddSwaggerGen(e =>
 {
     e.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -53,9 +52,9 @@ builder.Services.AddSwaggerGen(e =>
         }
     });
 });
+#endregion
 
-builder.Services.AddTransient<IValidator<TesteDTO>, TesteValidator>();
-
+#region DBCONTEXT
 //Configuração do Banco de dados para o DbContext
 builder.Services.AddDbContext<ColineSoftContext>(option =>
 {
@@ -67,15 +66,26 @@ builder.Services.AddDbContext<ColineSoftContext>(option =>
 
     option.UseSqlServer(strConnection);
 });
+#endregion
 
+#region INJEÇÃO DE DEPENDÊNCIA
 //Injeção de dependência
 builder.Services.ResolveDependenciesServices();
 builder.Services.ResolveDependenciesRepositories();
+#endregion
+
+#region VALIDATORS
 //Validators
 builder.Services.ResolveValidators();
+#endregion
+
+#region AUTO MAPPER
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(DomainToViewModelConfig));
 builder.Services.AddAutoMapper(typeof(ViewModelToDomainConfig));
+#endregion
+
+#region JWT
 //Authentication JWT
 //Antenção que o Swagger tb foi alterado para permitir inclusão do token nas requisições
 builder.Services.AddAuthentication(e =>
@@ -95,15 +105,19 @@ builder.Services.AddAuthentication(e =>
         ValidateAudience = false
     };
 });
+#endregion
 
+#region SERILOG
 //SERILOG
+//Configurações necessárias para iniciarlizar o SERILOG
 var logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.Console()
     .WriteTo.File("logs/arquivo.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
-builder.Logging.ClearProviders();
+builder.Logging.ClearProviders(); //Necesário limpar o logger padrão
 builder.Logging.AddSerilog(logger);
+#endregion
 
 var app = builder.Build();
 
